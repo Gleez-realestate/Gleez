@@ -80,11 +80,9 @@ body {
   </div>
 </header>
 
-<!-- Hero Section (تم إدراج طبقة تضليل أزرق كحلي داكن) -->
+<!-- Hero Section -->
 <section class="relative text-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-navy-800 overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('hero-bg.jpg');">
-  <!-- طبقة التضليل الكحلية (Navy Overlay) -->
   <div class="absolute inset-0 bg-navy-950/75 backdrop-blur-sm"></div>
-
   <div class="max-w-5xl mx-auto text-center relative z-10 space-y-4">
     <span class="px-3.5 py-1 bg-amber-500/20 border border-amber-500/40 text-amber-400 text-xs rounded-full font-bold uppercase tracking-wider inline-block backdrop-blur-md">خيارك الفاخر والموثوق</span>
     <h2 class="text-3xl sm:text-5xl font-black leading-tight text-white drop-shadow-lg">ابحث عن عقارك المثالي بكل سهولة ورقي</h2>
@@ -92,9 +90,8 @@ body {
   </div>
 </section>
 
-<!-- Main Container (خلفية القسم السفلي) -->
+<!-- Main Container -->
 <div class="bg-cover bg-center bg-no-repeat bg-fixed flex-grow w-full" style="background-image: url('main-bg.jpg');">
-  <!-- Filter & Search Toolbar -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
     <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-xl shadow-slate-200/50 border border-slate-200/80 space-y-5">
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
@@ -382,49 +379,7 @@ body {
 
 <!-- Script Logic -->
 <script>
-const defaultProperties = [
-  {
-    id: 1,
-    title: "فيلا مودرن فاخرة بتشطيب راقي جداً",
-    category: "فيلا",
-    type: "sale",
-    price: 125000,
-    location: "المعبيلة الجنوبية",
-    phone: "96895255561",
-    buildArea: "420 م²",
-    landArea: "600 م²",
-    bedrooms: 5,
-    bathrooms: 6,
-    floor: "طابقين + ملحق",
-    age: "جديدة",
-    mapUrl: "https://maps.google.com",
-    description: "فيلا راقية جداً بتصميم عصري وفريد، تشمل مجلس واسع وصالات مفتوحة ومطبخ إيطالي مجهز وتكييف مركزي بالكامل.",
-    images: [
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
-    ]
-  },
-  {
-    id: 2,
-    title: "شقة سكنية عصرية للإيجار موقع ممتاز",
-    category: "شقة",
-    type: "rent",
-    price: 380,
-    location: "الخوض السادسة",
-    phone: "96895255561",
-    buildArea: "150 م²",
-    landArea: "-",
-    bedrooms: 3,
-    bathrooms: 3,
-    floor: "الطابق الثاني",
-    age: "سنة واحدة",
-    mapUrl: "https://maps.google.com",
-    description: "شقة واسعة ومكيفة بالكامل مع مواقف مظللة ومصعد كهربائي وقريبة من كافة الخدمات التجارية.",
-    images: [
-      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80"
-    ]
-  }
-];
+const FIREBASE_DB_URL = "https://gleez-real-default-rtdb.firebaseio.com/properties";
 
 let properties = [];
 let tempUploadedImages = [];
@@ -434,17 +389,10 @@ let logoClickTimer = null;
 
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('year').textContent = new Date().getFullYear();
-  loadData();
+  fetchPropertiesFromFirebase();
 });
 
-// فتح لوحة الموظفين عند الضغط على F2
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'F2') {
-    openAdminModal();
-  }
-});
-
-// فتح لوحة الموظفين عند النقر 3 مرات على الشعار
+// دالة النقر على الشعار (3 مرات لفتح لوحة الأدمن)
 function handleLogoClick() {
   logoClickCount++;
   clearTimeout(logoClickTimer);
@@ -456,25 +404,32 @@ function handleLogoClick() {
   }, 400);
 }
 
-function loadData() {
-  const stored = localStorage.getItem('gleez_properties_data');
-  if (stored) {
-    try { properties = JSON.parse(stored); } catch(e) { properties = defaultProperties; }
-  } else {
-    properties = defaultProperties;
-    saveData();
+// فتح لوحة الأدمن عبر F2 أيضاً
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'F2') {
+    openAdminModal();
   }
-  populateLocations();
-  applyFilters();
-}
+});
 
-function saveData() {
-  localStorage.setItem('gleez_properties_data', JSON.stringify(properties));
+async function fetchPropertiesFromFirebase() {
+  try {
+    const response = await fetch(`${FIREBASE_DB_URL}.json`);
+    const data = await response.json();
+    if (data) {
+      properties = Object.keys(data).map(key => ({ ...data[key], firebaseKey: key }));
+    } else {
+      properties = [];
+    }
+    populateLocations();
+    applyFilters();
+  } catch (error) {
+    console.error("خطأ في جلب البيانات من Firebase:", error);
+  }
 }
 
 function populateLocations() {
   const select = document.getElementById('filterLocation');
-  const locations = [...new Set(properties.map(p => p.location.trim()))];
+  const locations = [...new Set(properties.map(p => p.location ? p.location.trim() : ''))].filter(Boolean);
   select.innerHTML = '<option value="all">جميع المناطق</option>';
   locations.forEach(loc => {
     select.innerHTML += `<option value="${loc}">${loc}</option>`;
@@ -490,8 +445,8 @@ function applyFilters() {
   const filtered = properties.filter(item => {
     const matchCat = (cat === 'all' || item.category === cat);
     const matchType = (type === 'all' || item.type === type);
-    const matchLoc = (loc === 'all' || item.location.trim() === loc);
-    const matchKw = !kw || item.title.toLowerCase().includes(kw) || item.location.toLowerCase().includes(kw);
+    const matchLoc = (loc === 'all' || (item.location && item.location.trim() === loc));
+    const matchKw = !kw || (item.title && item.title.toLowerCase().includes(kw)) || (item.location && item.location.toLowerCase().includes(kw));
     return matchCat && matchType && matchLoc && matchKw;
   });
 
@@ -534,7 +489,7 @@ function renderGrid(list) {
         </div>
       </div>
       <div class="p-5 pt-0">
-        <button onclick="openDetailsModal(${prop.id})" class="w-full py-2.5 bg-navy-900 hover:bg-amber-600 text-white hover:text-navy-950 font-bold rounded-xl text-xs transition flex items-center justify-center gap-2">
+        <button onclick="openDetailsModal('${prop.firebaseKey}')" class="w-full py-2.5 bg-navy-900 hover:bg-amber-600 text-white hover:text-navy-950 font-bold rounded-xl text-xs transition flex items-center justify-center gap-2">
           <i class="fa-solid fa-eye"></i>
           <span>عرض التفاصيل والحجز</span>
         </button>
@@ -543,8 +498,8 @@ function renderGrid(list) {
   `).join('');
 }
 
-function openDetailsModal(id) {
-  const prop = properties.find(p => p.id === id);
+function openDetailsModal(key) {
+  const prop = properties.find(p => p.firebaseKey === key);
   if (!prop) return;
   
   activePropertyForBooking = prop;
@@ -605,6 +560,7 @@ function closeAdminModal() { document.getElementById('adminModal').classList.add
 function checkAdminAuth() {
   const u = document.getElementById('adminUsername').value;
   const p = document.getElementById('adminPassword').value;
+  
   if ((u === 'gleez' || u === 'admin') && (p === '123456' || p === 'admin')) {
     document.getElementById('adminLoginForm').classList.add('hidden');
     document.getElementById('adminDashboard').classList.remove('hidden');
@@ -630,9 +586,9 @@ function handleImageUpload(e) {
   });
 }
 
-function handlePropertySubmit(e) {
+async function handlePropertySubmit(e) {
   e.preventDefault();
-  const editId = document.getElementById('editPropertyId').value;
+  const editKey = document.getElementById('editPropertyId').value;
   let imgs = [...tempUploadedImages];
   const urls = document.getElementById('formImageUrls').value.split(',').map(s => s.trim()).filter(s => s.length > 0);
   imgs = [...imgs, ...urls];
@@ -640,7 +596,7 @@ function handlePropertySubmit(e) {
   if (imgs.length === 0) imgs = ['https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80'];
 
   const data = {
-    id: editId ? Number(editId) : Date.now(),
+    id: Date.now(),
     title: document.getElementById('formTitle').value,
     category: document.getElementById('formCategory').value,
     type: document.getElementById('formType').value,
@@ -658,19 +614,28 @@ function handlePropertySubmit(e) {
     images: imgs
   };
 
-  if (editId) {
-    const idx = properties.findIndex(p => p.id === Number(editId));
-    if (idx !== -1) properties[idx] = data;
-  } else {
-    properties.unshift(data);
+  try {
+    if (editKey) {
+      await fetch(`${FIREBASE_DB_URL}/${editKey}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    } else {
+      await fetch(`${FIREBASE_DB_URL}.json`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    }
+    await fetchPropertiesFromFirebase();
+    renderAdminList();
+    resetAdminForm();
+    alert('تم نشر العقار بنجاح وسيحفظ فوراً لدى جميع الأجهزة والزوار!');
+  } catch (error) {
+    alert('حدث خطأ أثناء الاتصال بقاعدة البيانات.');
+    console.error(error);
   }
-
-  saveData();
-  populateLocations();
-  applyFilters();
-  renderAdminList();
-  resetAdminForm();
-  alert('تم حفظ العقار بنجاح!');
 }
 
 function renderAdminList() {
@@ -678,17 +643,17 @@ function renderAdminList() {
     <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold">
       <span>${p.title} (${p.location})</span>
       <div class="flex gap-1">
-        <button onclick="editProperty(${p.id})" class="px-2 py-1 bg-blue-100 text-blue-700 rounded-lg">تعديل</button>
-        <button onclick="deleteProperty(${p.id})" class="px-2 py-1 bg-red-100 text-red-700 rounded-lg">حذف</button>
+        <button onclick="editProperty('${p.firebaseKey}')" class="px-2 py-1 bg-blue-100 text-blue-700 rounded-lg">تعديل</button>
+        <button onclick="deleteProperty('${p.firebaseKey}')" class="px-2 py-1 bg-red-100 text-red-700 rounded-lg">حذف</button>
       </div>
     </div>
   `).join('');
 }
 
-function editProperty(id) {
-  const p = properties.find(item => item.id === id);
+function editProperty(key) {
+  const p = properties.find(item => item.firebaseKey === key);
   if (!p) return;
-  document.getElementById('editPropertyId').value = p.id;
+  document.getElementById('editPropertyId').value = key;
   document.getElementById('formTitle').value = p.title;
   document.getElementById('formCategory').value = p.category || 'فيلا';
   document.getElementById('formType').value = p.type;
@@ -703,16 +668,19 @@ function editProperty(id) {
   document.getElementById('formAge').value = p.age || '';
   document.getElementById('formMapUrl').value = p.mapUrl || '';
   document.getElementById('formDescription').value = p.description || '';
-  document.getElementById('formHeaderTitle').textContent = `تعديل عقار (#${p.id})`;
+  document.getElementById('formHeaderTitle').textContent = `تعديل عقار`;
 }
 
-function deleteProperty(id) {
-  if (confirm('هل أنت متأكد من حذف هذا العقار؟')) {
-    properties = properties.filter(p => p.id !== id);
-    saveData();
-    populateLocations();
-    applyFilters();
-    renderAdminList();
+async function deleteProperty(key) {
+  if (confirm('هل أنت متأكد من حذف هذا العقار من جميع الأجهزة؟')) {
+    try {
+      await fetch(`${FIREBASE_DB_URL}/${key}.json`, { method: 'DELETE' });
+      await fetchPropertiesFromFirebase();
+      renderAdminList();
+    } catch (error) {
+      alert('حدث خطأ أثناء الحذف.');
+      console.error(error);
+    }
   }
 }
 
