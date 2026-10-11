@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>جليز العقارية | GLEEZ Real Estate</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- FontAwesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Google Cairo Font -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        navy: {
+          800: '#0f1f38',
+          900: '#0a1526',
+          950: '#050b14'
+        },
+        amber: {
+          500: '#d97706',
+          600: '#b45309'
+        }
+      },
+      fontFamily: {
+        cairo: ['Cairo', 'sans-serif']
+      }
+    }
+  }
+}
+</script>
+<style>
+body {
+  font-family: 'Cairo', sans-serif;
+  background-color: #f8fafc;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a1526;
+}
+::-webkit-scrollbar-thumb {
+  background: #b45309;
+  border-radius: 4px;
+}
+</style>
+</head>
+<body class="text-slate-800 bg-slate-50 min-h-screen flex flex-col justify-between selection:bg-amber-600 selection:text-white">
+
+<!-- Header / Navigation Bar -->
+<header class="sticky top-0 z-40 bg-navy-900 border-b border-navy-800 text-white shadow-xl">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <!-- Logo Section -->
+    <div onclick="handleLogoClick()" class="flex items-center space-x-3 space-x-reverse group cursor-pointer select-none">
+      <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center p-1 shadow-md shadow-amber-500/10 group-hover:scale-105 transition-transform duration-200 overflow-hidden">
+        <img src="logo.png" alt="جليز العقارية" class="w-full h-full object-contain">
+      </div>
+      <div>
+        <h1 class="font-black text-xl sm:text-2xl tracking-wide text-white">جليز العقارية</h1>
+        <p class="text-[10px] text-amber-500 tracking-widest font-bold uppercase">GLEEZ REAL ESTATE</p>
+      </div>
+    </div>
+    <!-- Nav Controls -->
+    <div class="flex items-center space-x-3 space-x-reverse">
+      <!-- زر الواتساب السريع -->
+      <a href="https://wa.me/96895255561?text=%D1%83%D0%B1%D1%84%D0%B0%D0%BC%D0%BE%20%D1%8B%D0%BB%D0%B8%D0%BA%D0%BC%20%D0%B3%D0%BB%D0%B8%D0%B7%D0%B0%D0%BB%D1%89%D0%BA%D0%B0%D0%B1%D1%8C%D0%A9%D8%8C%20%D0%B0%D0%BE%D0%B4%20%D0%B0%D0%BB%D0%B0%D1%81%D1%82%D1%84%D1%81%D0%B0%D1%80" target="_blank" title="تواصل عبر الواتساب" class="w-10 h-10 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black transition flex items-center justify-center shadow-lg shadow-emerald-600/20 group">
+        <i class="fa-brands fa-whatsapp text-xl group-hover:scale-110 transition-transform"></i>
+      </a>
+      <!-- رابط الانستجرام -->
+      <a href="https://www.instagram.com/gleez.om?stkn=Z2Job2lsOGR1b2M4" target="_blank" class="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-navy-950 font-black transition flex items-center space-x-2 space-x-reverse text-xs shadow-lg shadow-amber-600/20">
+        <i class="fa-brands fa-instagram text-lg"></i>
+        <span class="hidden sm:inline">تابعنا على إنستغرام</span>
+        <span class="sm:hidden">إنستغرام</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Hero Section (تم إدراج طبقة تضليل أزرق كحلي داكن) -->
+<section class="relative text-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-navy-800 overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('hero-bg.jpg');">
+  <!-- طبقة التضليل الكحلية (Navy Overlay) -->
+  <div class="absolute inset-0 bg-navy-950/75 backdrop-blur-sm"></div>
+
+  <div class="max-w-5xl mx-auto text-center relative z-10 space-y-4">
+    <span class="px-3.5 py-1 bg-amber-500/20 border border-amber-500/40 text-amber-400 text-xs rounded-full font-bold uppercase tracking-wider inline-block backdrop-blur-md">خيارك الفاخر والموثوق</span>
+    <h2 class="text-3xl sm:text-5xl font-black leading-tight text-white drop-shadow-lg">ابحث عن عقارك المثالي بكل سهولة ورقي</h2>
+    <p class="text-slate-200 text-sm sm:text-base max-w-2xl mx-auto drop-shadow-md">نقدم لك أرقى المجمعات والفلل والشقق والأراضي في أفضل المواقع الاستثمارية.</p>
+  </div>
+</section>
+
+<!-- Main Container (خلفية القسم السفلي) -->
+<div class="bg-cover bg-center bg-no-repeat bg-fixed flex-grow w-full" style="background-image: url('main-bg.jpg');">
+  <!-- Filter & Search Toolbar -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-xl shadow-slate-200/50 border border-slate-200/80 space-y-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-500 mb-1.5">نوع العقار</label>
+          <select id="filterCategory" onchange="applyFilters()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-bold bg-slate-50 text-slate-800 outline-none focus:ring-2 focus:ring-amber-500">
+            <option value="all">كافة الأنواع (فلل، شقق، أراضي)</option>
+            <option value="فيلا">فلل ومنازل</option>
+            <option value="شقة">شقق سكنية</option>
+            <option value="أرض">أراضي متعدّدة</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-500 mb-1.5">نوع العرض</label>
+          <select id="filterType" onchange="applyFilters()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-bold bg-slate-50 text-slate-800 outline-none focus:ring-2 focus:ring-amber-500">
+            <option value="all">الكل (للبيع وللإيجار)</option>
+            <option value="sale">للبيع</option>
+            <option value="rent">للإيجار</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-500 mb-1.5">الموقع / المنطقة</label>
+          <select id="filterLocation" onchange="applyFilters()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-bold bg-slate-50 text-slate-800 outline-none focus:ring-2 focus:ring-amber-500">
+            <option value="all">جميع المناطق</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-500 mb-1.5">بحث عن عقار</label>
+          <div class="relative">
+            <input type="text" id="filterKeyword" onkeyup="applyFilters()" placeholder="ادخل كلمة للبحث..." class="w-full pl-3 pr-9 py-2.5 rounded-xl border border-slate-200 text-sm font-bold bg-slate-50 outline-none focus:ring-2 focus:ring-amber-500">
+            <i class="fa-solid fa-magnifying-glass absolute right-3 top-3.5 text-slate-400 text-xs"></i>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between pt-3 border-t border-slate-100 text-xs font-bold text-slate-500">
+        <span class="flex items-center gap-1.5">
+          <i class="fa-solid fa-building text-amber-600"></i>
+          <span>عدد العقارات المعروضة: <strong id="propertiesCount" class="text-navy-900 text-sm">0</strong></span>
+        </span>
+        <span class="text-amber-600 font-extrabold flex items-center gap-1">
+          <i class="fa-solid fa-certificate"></i>
+          جليز العقارية
+        </span>
+      </div>
+    </div>
+
+    <!-- Property Grid -->
+    <div id="propertyGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"></div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="hidden text-center py-16 px-4 bg-white rounded-3xl border border-dashed border-slate-300">
+      <i class="fa-solid fa-house-circle-xmark text-5xl text-slate-300 mb-3"></i>
+      <h3 class="text-lg font-bold text-slate-700">لم يتم العثور على عقارات مطابقة</h3>
+      <p class="text-xs text-slate-500 mt-1">يرجى تغيير خيارات الفلترة أو إعادة البحث مرة أخرى.</p>
+    </div>
+  </main>
+</div>
+
+<!-- Details Modal -->
+<div id="detailsModal" class="fixed inset-0 bg-navy-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+  <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-200 flex flex-col my-auto relative">
+    <div class="sticky top-0 bg-white z-20 px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+      <div>
+        <span id="modalTypeBadge" class="px-3 py-0.5 rounded-full text-xs font-black bg-amber-100 text-amber-800"></span>
+        <h3 id="modalTitle" class="text-xl font-extrabold text-navy-900 mt-1"></h3>
+      </div>
+      <button onclick="closeDetailsModal()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition flex items-center justify-center">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+    </div>
+    <div class="p-6 space-y-6">
+      <div class="space-y-3">
+        <div class="relative h-64 sm:h-96 rounded-2xl overflow-hidden bg-navy-900">
+          <img id="modalMainImage" src="" alt="صورة العقار" class="w-full h-full object-cover transition-all duration-300">
+        </div>
+        <div id="modalThumbnails" class="flex gap-2 overflow-x-auto pb-2"></div>
+      </div>
+      <div class="flex flex-wrap items-center justify-between p-4 rounded-2xl bg-slate-50 border border-slate-200/80 gap-3">
+        <div>
+          <span class="text-xs text-slate-400 block font-bold">السعر المطلوب</span>
+          <div class="text-2xl font-black text-amber-600" id="modalPrice"></div>
+        </div>
+        <div class="text-left sm:text-right">
+          <span class="text-xs text-slate-400 block font-bold">الموقع والمنطقة</span>
+          <div class="text-navy-900 font-bold flex items-center gap-1">
+            <i class="fa-solid fa-location-dot text-amber-600"></i>
+            <span id="modalLocation"></span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold text-slate-400 mb-3 uppercase tracking-wider">مواصفات العقار الفنية</h4>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 text-center">
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/60">
+            <i class="fa-solid fa-vector-square text-amber-600 text-lg mb-1"></i>
+            <span class="block text-[10px] text-slate-400 font-bold">مساحة البناء</span>
+            <strong id="modalBuildArea" class="text-xs text-slate-800 font-black"></strong>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/60">
+            <i class="fa-solid fa-ruler-combined text-amber-600 text-lg mb-1"></i>
+            <span class="block text-[10px] text-slate-400 font-bold">مساحة الأرض</span>
+            <strong id="modalLandArea" class="text-xs text-slate-800 font-black"></strong>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/60">
+            <i class="fa-solid fa-bed text-amber-600 text-lg mb-1"></i>
+            <span class="block text-[10px] text-slate-400 font-bold">عدد الغرف</span>
+            <strong id="modalBedrooms" class="text-xs text-slate-800 font-black"></strong>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/60">
+            <i class="fa-solid fa-bath text-amber-600 text-lg mb-1"></i>
+            <span class="block text-[10px] text-slate-400 font-bold">دورات المياه</span>
+            <strong id="modalBathrooms" class="text-xs text-slate-800 font-black"></strong>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/60">
+            <i class="fa-solid fa-layer-group text-amber-600 text-lg mb-1"></i>
+            <span class="block text-[10px] text-slate-400 font-bold">الطابق</span>
+            <strong id="modalFloor" class="text-xs text-slate-800 font-black"></strong>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/60">
+            <i class="fa-solid fa-hourglass-start text-amber-600 text-lg mb-1"></i>
+            <span class="block text-[10px] text-slate-400 font-bold">عمر العقار</span>
+            <strong id="modalAge" class="text-xs text-slate-800 font-black"></strong>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">التفاصيل والوصف الكامل</h4>
+        <p id="modalDescription" class="text-sm text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100 whitespace-pre-line"></p>
+      </div>
+      <div id="modalMapBox">
+        <a id="modalMapLink" href="#" target="_blank" class="w-full p-3 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center gap-2 border border-blue-200 transition">
+          <i class="fa-solid fa-map-location-dot text-base"></i>
+          <span>عرض الموقع المباشر على الخريطة (Google Maps)</span>
+        </a>
+      </div>
+      <div class="bg-amber-50/60 rounded-2xl p-4 border border-amber-200/80 space-y-3">
+        <h4 class="text-xs font-extrabold text-amber-900 flex items-center gap-1.5">
+          <i class="fa-solid fa-calendar-check text-amber-600"></i>
+          <span>حجز موعد لمعاينة العقار</span>
+        </h4>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <input type="text" id="bookingName" placeholder="الاسم الكامل" class="px-3 py-2 rounded-xl bg-white border border-amber-200 text-xs font-bold outline-none">
+          <input type="date" id="bookingDate" class="px-3 py-2 rounded-xl bg-white border border-amber-200 text-xs font-bold outline-none">
+          <input type="time" id="bookingTime" class="px-3 py-2 rounded-xl bg-white border border-amber-200 text-xs font-bold outline-none">
+        </div>
+        <button onclick="sendBookingRequest()" class="w-full py-2.5 bg-amber-600 hover:bg-amber-500 text-navy-950 font-black text-xs rounded-xl shadow-md transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>إرسال طلب الحجز لمسؤول العقار عبر الواتساب</span>
+        </button>
+      </div>
+    </div>
+    <div class="p-4 bg-slate-50 border-t border-slate-100 sticky bottom-0 rounded-b-3xl">
+      <a id="whatsappBtn" href="#" target="_blank" class="w-full py-3.5 px-6 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-center flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 transition">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span>محادثة واتساب مباشرة مع المستشار المسؤول</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Modal -->
+<div id="adminModal" class="fixed inset-0 bg-navy-950/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+  <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-200 flex flex-col my-auto relative">
+    <div class="sticky top-0 bg-navy-900 text-white px-6 py-4 z-20 flex items-center justify-between border-b border-navy-800">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-sliders text-amber-500"></i>
+        <h3 class="font-extrabold text-base">لوحة إضافة وإدارة العقارات - جليز العقارية</h3>
+      </div>
+      <button onclick="closeAdminModal()" class="w-8 h-8 rounded-full bg-navy-800 text-slate-300 hover:text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div id="adminLoginForm" class="p-8 max-w-md mx-auto w-full text-center space-y-4 my-8">
+      <div class="w-16 h-16 bg-navy-50 text-navy-900 rounded-2xl flex items-center justify-center mx-auto text-2xl">
+        <i class="fa-solid fa-lock"></i>
+      </div>
+      <h4 class="text-lg font-black text-navy-900">تسجيل دخول الموظفين</h4>
+      <div class="space-y-3">
+        <input type="text" id="adminUsername" placeholder="اسم المستخدم (gleez)" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none text-center">
+        <input type="password" id="adminPassword" placeholder="كلمة المرور (123456)" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none text-center">
+        <button onclick="checkAdminAuth()" class="w-full py-3 bg-amber-600 hover:bg-amber-500 text-navy-950 font-black text-xs rounded-xl shadow-md transition">دخول اللوحة</button>
+      </div>
+    </div>
+    <div id="adminDashboard" class="hidden p-6 space-y-8">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <h4 class="text-base font-black text-navy-900" id="formHeaderTitle">إضافة عقار جديد</h4>
+        <button onclick="resetAdminForm()" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-600">إعادة ضبط</button>
+      </div>
+      <form id="propertyForm" onsubmit="handlePropertySubmit(event)" class="space-y-5">
+        <input type="hidden" id="editPropertyId" value="">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">عنوان العقار *</label>
+            <input type="text" id="formTitle" required placeholder="مثال: فيلا فاخرة بتشطيب ممتاز" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">تصنيف العقار *</label>
+            <select id="formCategory" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-bold bg-white outline-none">
+              <option value="فيلا">فيلا / منزل</option>
+              <option value="شقة">شقة سكنية</option>
+              <option value="أرض">أراضي</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">نوع العرض *</label>
+            <select id="formType" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-bold bg-white outline-none">
+              <option value="sale">للبيع</option>
+              <option value="rent">للإيجار</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">السعر (ر.ع) *</label>
+            <input type="number" id="formPrice" required placeholder="مثال: 95000" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">الموقع / المنطقة *</label>
+            <input type="text" id="formLocation" required placeholder="مثال: المعبيلة، مسقط" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">رقم الواتساب الخاص بالعقار *</label>
+            <input type="text" id="formPhone" required placeholder="96895255561" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none" dir="ltr">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">مساحة البناء</label>
+            <input type="text" id="formBuildArea" placeholder="350 م²" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">مساحة الأرض</label>
+            <input type="text" id="formLandArea" placeholder="600 م²" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">الغرف</label>
+            <input type="number" id="formBedrooms" placeholder="5" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">دورات المياه</label>
+            <input type="number" id="formBathrooms" placeholder="6" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">الطابق</label>
+            <input type="text" id="formFloor" placeholder="طابقين" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">عمر العقار</label>
+            <input type="text" id="formAge" placeholder="جديد" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">رابط موقع الخريطة Google Maps (اختياري)</label>
+          <input type="text" id="formMapUrl" placeholder="https://maps.google.com/..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none" dir="ltr">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">وصف كامل ومفصل للعقار</label>
+          <textarea id="formDescription" rows="3" placeholder="أدخل مواصفات العقار وتفاصيله..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs font-bold outline-none"></textarea>
+        </div>
+        <div class="bg-slate-50 p-4 rounded-2xl border border-dashed border-slate-300 space-y-3">
+          <label class="block text-xs font-bold text-slate-700">رفع صور العقار من جهازك</label>
+          <input type="file" id="imageInput" multiple accept="image/*" onchange="handleImageUpload(event)" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-extrabold file:bg-navy-900 file:text-white cursor-pointer">
+          <input type="text" id="formImageUrls" placeholder="أو أدخل روابط صور مباشرة مفصولة بفاصلة (,)" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs font-bold bg-white outline-none">
+          <div id="imagePreviewContainer" class="flex flex-wrap gap-2 pt-2"></div>
+        </div>
+        <button type="submit" class="w-full py-3.5 bg-amber-600 hover:bg-amber-500 text-navy-950 font-black rounded-2xl shadow-lg transition">
+          حفظ ونشر العقار
+        </button>
+      </form>
+      <div class="pt-6 border-t border-slate-200 space-y-3">
+        <h4 class="text-sm font-bold text-navy-900">إدارة العقارات الحالية</h4>
+        <div id="adminPropertyList" class="space-y-2 max-h-60 overflow-y-auto"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-navy-950 text-slate-400 border-t border-navy-800 py-8 text-center text-xs">
+  <div class="max-w-7xl mx-auto px-4 space-y-2">
+    <p class="text-white font-extrabold">جميع الحقوق محفوظة ©️ <span id="year"></span> لشركة جليز العقارية (GLEEZ REAL ESTATE)</p>
+    <p class="text-slate-500">حلول واستشارات عقارية متميزة</p>
+  </div>
+</footer>
+
+<!-- Script Logic -->
+<script>
+const defaultProperties = [
+  {
+    id: 1,
+    title: "فيلا مودرن فاخرة بتشطيب راقي جداً",
+    category: "فيلا",
+    type: "sale",
+    price: 125000,
+    location: "المعبيلة الجنوبية",
+    phone: "96895255561",
+    buildArea: "420 م²",
+    landArea: "600 م²",
+    bedrooms: 5,
+    bathrooms: 6,
+    floor: "طابقين + ملحق",
+    age: "جديدة",
+    mapUrl: "https://maps.google.com",
+    description: "فيلا راقية جداً بتصميم عصري وفريد، تشمل مجلس واسع وصالات مفتوحة ومطبخ إيطالي مجهز وتكييف مركزي بالكامل.",
+    images: [
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    id: 2,
+    title: "شقة سكنية عصرية للإيجار موقع ممتاز",
+    category: "شقة",
+    type: "rent",
+    price: 380,
+    location: "الخوض السادسة",
+    phone: "96895255561",
+    buildArea: "150 م²",
+    landArea: "-",
+    bedrooms: 3,
+    bathrooms: 3,
+    floor: "الطابق الثاني",
+    age: "سنة واحدة",
+    mapUrl: "https://maps.google.com",
+    description: "شقة واسعة ومكيفة بالكامل مع مواقف مظللة ومصعد كهربائي وقريبة من كافة الخدمات التجارية.",
+    images: [
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80"
+    ]
+  }
+];
+
+let properties = [];
+let tempUploadedImages = [];
+let activePropertyForBooking = null;
+let logoClickCount = 0;
+let logoClickTimer = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('year').textContent = new Date().getFullYear();
+  loadData();
+});
+
+// فتح لوحة الموظفين عند الضغط على F2
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'F2') {
+    openAdminModal();
+  }
+});
+
+// فتح لوحة الموظفين عند النقر 3 مرات على الشعار
+function handleLogoClick() {
+  logoClickCount++;
+  clearTimeout(logoClickTimer);
+  logoClickTimer = setTimeout(() => {
+    if (logoClickCount >= 3) {
+      openAdminModal();
+    }
+    logoClickCount = 0;
+  }, 400);
+}
+
+function loadData() {
+  const stored = localStorage.getItem('gleez_properties_data');
+  if (stored) {
+    try { properties = JSON.parse(stored); } catch(e) { properties = defaultProperties; }
+  } else {
+    properties = defaultProperties;
+    saveData();
+  }
+  populateLocations();
+  applyFilters();
+}
+
+function saveData() {
+  localStorage.setItem('gleez_properties_data', JSON.stringify(properties));
+}
+
+function populateLocations() {
+  const select = document.getElementById('filterLocation');
+  const locations = [...new Set(properties.map(p => p.location.trim()))];
+  select.innerHTML = '<option value="all">جميع المناطق</option>';
+  locations.forEach(loc => {
+    select.innerHTML += `<option value="${loc}">${loc}</option>`;
+  });
+}
+
+function applyFilters() {
+  const cat = document.getElementById('filterCategory').value;
+  const type = document.getElementById('filterType').value;
+  const loc = document.getElementById('filterLocation').value;
+  const kw = document.getElementById('filterKeyword').value.toLowerCase().trim();
+
+  const filtered = properties.filter(item => {
+    const matchCat = (cat === 'all' || item.category === cat);
+    const matchType = (type === 'all' || item.type === type);
+    const matchLoc = (loc === 'all' || item.location.trim() === loc);
+    const matchKw = !kw || item.title.toLowerCase().includes(kw) || item.location.toLowerCase().includes(kw);
+    return matchCat && matchType && matchLoc && matchKw;
+  });
+
+  document.getElementById('propertiesCount').textContent = filtered.length;
+  renderGrid(filtered);
+}
+
+function renderGrid(list) {
+  const grid = document.getElementById('propertyGrid');
+  const empty = document.getElementById('emptyState');
+  
+  if (list.length === 0) {
+    grid.innerHTML = '';
+    empty.classList.remove('hidden');
+    return;
+  }
+  
+  empty.classList.add('hidden');
+  grid.innerHTML = list.map(prop => `
+    <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200/80 flex flex-col justify-between group">
+      <div>
+        <div class="relative h-56 bg-navy-950 overflow-hidden">
+          <img src="${prop.images && prop.images.length > 0 ? prop.images[0] : 'https://via.placeholder.com/600'}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-black ${prop.type === 'sale' ? 'bg-amber-500 text-navy-950' : 'bg-blue-600 text-white'} shadow-md">
+            ${prop.type === 'sale' ? 'للبيع' : 'للإيجار'}
+          </span>
+          <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-navy-900/80 text-white backdrop-blur">
+            ${prop.location}
+          </span>
+        </div>
+        <div class="p-5 space-y-3">
+          <h3 class="font-extrabold text-navy-900 text-base line-clamp-1 group-hover:text-amber-600 transition-colors">${prop.title}</h3>
+          <div class="text-xl font-black text-amber-600">
+            ${Number(prop.price).toLocaleString()} <span class="text-xs font-normal">ر.ع ${prop.type === 'rent' ? '/ شهرياً' : ''}</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 py-2 border-y border-slate-100 text-center text-xs text-slate-600 font-bold">
+            <div><i class="fa-solid fa-bed text-amber-500 ml-1"></i> ${prop.bedrooms || 0} غرف</div>
+            <div><i class="fa-solid fa-bath text-amber-500 ml-1"></i> ${prop.bathrooms || 0} حمام</div>
+          </div>
+        </div>
+      </div>
+      <div class="p-5 pt-0">
+        <button onclick="openDetailsModal(${prop.id})" class="w-full py-2.5 bg-navy-900 hover:bg-amber-600 text-white hover:text-navy-950 font-bold rounded-xl text-xs transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-eye"></i>
+          <span>عرض التفاصيل والحجز</span>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openDetailsModal(id) {
+  const prop = properties.find(p => p.id === id);
+  if (!prop) return;
+  
+  activePropertyForBooking = prop;
+  document.getElementById('modalTitle').textContent = prop.title;
+  document.getElementById('modalPrice').textContent = `${Number(prop.price).toLocaleString()} ر.ع ${prop.type === 'rent' ? '/ شهرياً' : ''}`;
+  document.getElementById('modalLocation').textContent = prop.location;
+  document.getElementById('modalTypeBadge').textContent = prop.type === 'sale' ? 'عقار للبيع' : 'عقار للإيجار';
+  document.getElementById('modalBuildArea').textContent = prop.buildArea || 'غير محدد';
+  document.getElementById('modalLandArea').textContent = prop.landArea || 'غير محدد';
+  document.getElementById('modalBedrooms').textContent = prop.bedrooms || '0';
+  document.getElementById('modalBathrooms').textContent = prop.bathrooms || '0';
+  document.getElementById('modalFloor').textContent = prop.floor || 'غير محدد';
+  document.getElementById('modalAge').textContent = prop.age || 'غير محدد';
+  document.getElementById('modalDescription').textContent = prop.description || 'لا يوجد وصف إضافي.';
+
+  const mapBox = document.getElementById('modalMapBox');
+  if (prop.mapUrl) {
+    document.getElementById('modalMapLink').href = prop.mapUrl;
+    mapBox.classList.remove('hidden');
+  } else {
+    mapBox.classList.add('hidden');
+  }
+
+  const images = (prop.images && prop.images.length > 0) ? prop.images : ['https://via.placeholder.com/600'];
+  document.getElementById('modalMainImage').src = images[0];
+  document.getElementById('modalThumbnails').innerHTML = images.map(img => `<img src="${img}" onclick="document.getElementById('modalMainImage').src='${img}'" class="w-16 h-16 object-cover rounded-xl border-2 border-slate-200 cursor-pointer hover:border-amber-500 transition flex-shrink-0">`).join('');
+
+  const waNum = prop.phone ? prop.phone.replace(/[^0-9]/g, '') : '96895255561';
+  const waMsg = encodeURIComponent(`السلام عليكم جليز العقارية، أود الاستفسار عن العقار:\n- ${prop.title}\n- السعر: ${prop.price} OMR\n- الموقع: ${prop.location}`);
+  document.getElementById('whatsappBtn').href = `https://wa.me/${waNum}?text=${waMsg}`;
+
+  document.getElementById('detailsModal').classList.remove('hidden');
+}
+
+function closeDetailsModal() {
+  document.getElementById('detailsModal').classList.add('hidden');
+}
+
+function sendBookingRequest() {
+  if (!activePropertyForBooking) return;
+  const name = document.getElementById('bookingName').value;
+  const date = document.getElementById('bookingDate').value;
+  const time = document.getElementById('bookingTime').value;
+
+  if (!name || !date || !time) {
+    alert('يرجى تعبئة كافة بيانات حجز الموعد (الاسم، التاريخ، الوقت).');
+    return;
+  }
+
+  const waNum = activePropertyForBooking.phone ? activePropertyForBooking.phone.replace(/[^0-9]/g, '') : '96895255561';
+  const msg = encodeURIComponent(`طلب حجز موعد معاينة عقار:\n- العقار: ${activePropertyForBooking.title}\n- الاسم: ${name}\n- التاريخ: ${date}\n- الوقت: ${time}`);
+  window.open(`https://wa.me/${waNum}?text=${msg}`, '_blank');
+}
+
+function openAdminModal() { document.getElementById('adminModal').classList.remove('hidden'); }
+function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); }
+
+function checkAdminAuth() {
+  const u = document.getElementById('adminUsername').value;
+  const p = document.getElementById('adminPassword').value;
+  if ((u === 'gleez' || u === 'admin') && (p === '123456' || p === 'admin')) {
+    document.getElementById('adminLoginForm').classList.add('hidden');
+    document.getElementById('adminDashboard').classList.remove('hidden');
+    renderAdminList();
+  } else {
+    alert('اسم المستخدم أو كلمة المرور غير صحيحة!');
+  }
+}
+
+function handleImageUpload(e) {
+  const files = Array.from(e.target.files);
+  tempUploadedImages = [];
+  const preview = document.getElementById('imagePreviewContainer');
+  preview.innerHTML = '';
+  
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      tempUploadedImages.push(event.target.result);
+      preview.innerHTML += `<img src="${event.target.result}" class="w-14 h-14 object-cover rounded-lg border border-amber-500">`;
+    }
+    reader.readAsDataURL(file);
+  });
+}
+
+function handlePropertySubmit(e) {
+  e.preventDefault();
+  const editId = document.getElementById('editPropertyId').value;
+  let imgs = [...tempUploadedImages];
+  const urls = document.getElementById('formImageUrls').value.split(',').map(s => s.trim()).filter(s => s.length > 0);
+  imgs = [...imgs, ...urls];
+  
+  if (imgs.length === 0) imgs = ['https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80'];
+
+  const data = {
+    id: editId ? Number(editId) : Date.now(),
+    title: document.getElementById('formTitle').value,
+    category: document.getElementById('formCategory').value,
+    type: document.getElementById('formType').value,
+    price: Number(document.getElementById('formPrice').value),
+    location: document.getElementById('formLocation').value,
+    phone: document.getElementById('formPhone').value || '96895255561',
+    buildArea: document.getElementById('formBuildArea').value,
+    landArea: document.getElementById('formLandArea').value,
+    bedrooms: Number(document.getElementById('formBedrooms').value) || 0,
+    bathrooms: Number(document.getElementById('formBathrooms').value) || 0,
+    floor: document.getElementById('formFloor').value,
+    age: document.getElementById('formAge').value,
+    mapUrl: document.getElementById('formMapUrl').value,
+    description: document.getElementById('formDescription').value,
+    images: imgs
+  };
+
+  if (editId) {
+    const idx = properties.findIndex(p => p.id === Number(editId));
+    if (idx !== -1) properties[idx] = data;
+  } else {
+    properties.unshift(data);
+  }
+
+  saveData();
+  populateLocations();
+  applyFilters();
+  renderAdminList();
+  resetAdminForm();
+  alert('تم حفظ العقار بنجاح!');
+}
+
+function renderAdminList() {
+  document.getElementById('adminPropertyList').innerHTML = properties.map(p => `
+    <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold">
+      <span>${p.title} (${p.location})</span>
+      <div class="flex gap-1">
+        <button onclick="editProperty(${p.id})" class="px-2 py-1 bg-blue-100 text-blue-700 rounded-lg">تعديل</button>
+        <button onclick="deleteProperty(${p.id})" class="px-2 py-1 bg-red-100 text-red-700 rounded-lg">حذف</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function editProperty(id) {
+  const p = properties.find(item => item.id === id);
+  if (!p) return;
+  document.getElementById('editPropertyId').value = p.id;
+  document.getElementById('formTitle').value = p.title;
+  document.getElementById('formCategory').value = p.category || 'فيلا';
+  document.getElementById('formType').value = p.type;
+  document.getElementById('formPrice').value = p.price;
+  document.getElementById('formLocation').value = p.location;
+  document.getElementById('formPhone').value = p.phone || '96895255561';
+  document.getElementById('formBuildArea').value = p.buildArea || '';
+  document.getElementById('formLandArea').value = p.landArea || '';
+  document.getElementById('formBedrooms').value = p.bedrooms || '';
+  document.getElementById('formBathrooms').value = p.bathrooms || '';
+  document.getElementById('formFloor').value = p.floor || '';
+  document.getElementById('formAge').value = p.age || '';
+  document.getElementById('formMapUrl').value = p.mapUrl || '';
+  document.getElementById('formDescription').value = p.description || '';
+  document.getElementById('formHeaderTitle').textContent = `تعديل عقار (#${p.id})`;
+}
+
+function deleteProperty(id) {
+  if (confirm('هل أنت متأكد من حذف هذا العقار؟')) {
+    properties = properties.filter(p => p.id !== id);
+    saveData();
+    populateLocations();
+    applyFilters();
+    renderAdminList();
+  }
+}
+
+function resetAdminForm() {
+  document.getElementById('propertyForm').reset();
+  document.getElementById('editPropertyId').value = '';
+  document.getElementById('formHeaderTitle').textContent = 'إضافة عقار جديد';
+  tempUploadedImages = [];
+  document.getElementById('imagePreviewContainer').innerHTML = '';
+}
+</script>
+</body>
+</html>
